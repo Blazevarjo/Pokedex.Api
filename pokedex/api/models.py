@@ -4,10 +4,16 @@ from django.db import models
 class PokemonType(models.Model):
     name = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.name
+
 
 class PokemonStats(models.Model):
     name = models.CharField(max_length=50)
     value = models.SmallIntegerField()
+
+    def __str__(self):
+        return f'{self.name} : {self.value}'
 
 
 class Pokemon(models.Model):
@@ -21,3 +27,6 @@ class Pokemon(models.Model):
     color = models.CharField(max_length=50)
     generation = models.CharField(max_length=10)
     evolution_chain = models.URLField()
+
+    def __str__(self):
+        return f'{self.id} {self.name}'
