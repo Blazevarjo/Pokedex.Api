@@ -44,11 +44,3 @@ def update_pokemons():
         pokemon_stats = [PokemonStats.objects.get_or_create(**pokemon_stat)[0] for pokemon_stat in stats]
 
         obj.stats.add(*pokemon_stats)
-
-
-app.conf.beat_schedule = {
-    'run-me-every-ten-seconds': {
-        'task': 'pokedex.update_pokemons',
-        'schedule': 3600
-    }
-}
