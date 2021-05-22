@@ -10,11 +10,18 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
-from pathlib import Path
-import dj_database_url
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+import dj_database_url
+import environ
+from pathlib import Path
+
 from django.conf.global_settings import DATABASES
+
+env = environ.Env(DEBUG=(bool, False), ALLOWED_HOSTS=(list, []))
+environ.Env.read_env()
+
+ALLOWED_HOSTS = env('ALLOWED_HOSTS')
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,13 +29,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-dp2byp&ss-vu96hqp_1)a3x#v6#&$n1v1hh12eeilutoja2p(6'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['mim-pokedex-api.herokuapp.com']
-
+SECRET_KEY = env('SECRET_KEY')
+DEBUG = env('DEBUG')
 # Application definition
 
 INSTALLED_APPS = [
@@ -54,6 +56,20 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'TrudneHaslo123-d',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
+BROKER_URL = env('BROKER_URL')
+
 ROOT_URLCONF = 'pokedex.urls'
 
 TEMPLATES = [
@@ -73,11 +89,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'pokedex.wsgi.application'
-
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
