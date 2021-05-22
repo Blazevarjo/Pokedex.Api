@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import PokemonType, Pokemon, PokemonStats
+from .models import PokemonType, Pokemon, PokemonStat
 
 
 class PokemonTypeSerializer(serializers.ModelSerializer):
@@ -9,15 +9,15 @@ class PokemonTypeSerializer(serializers.ModelSerializer):
         fields = ['name']
 
 
-class PokemonStatsSerializer(serializers.ModelSerializer):
+class PokemonStatSerializer(serializers.ModelSerializer):
     class Meta:
-        model = PokemonStats
+        model = PokemonStat
         fields = ['name', 'value']
 
 
 class PokemonSerializer(serializers.ModelSerializer):
     types = PokemonTypeSerializer(many=True)
-    stats = PokemonStatsSerializer(many=True)
+    stats = PokemonStatSerializer(many=True)
 
     class Meta:
         model = Pokemon

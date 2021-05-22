@@ -1,6 +1,13 @@
 from django.db import models
 
 
+class PokemonMove(models.Model):
+    url = models.URLField()
+
+    def __str__(self):
+        return self.url
+
+
 class PokemonType(models.Model):
     name = models.CharField(max_length=50)
 
@@ -8,7 +15,7 @@ class PokemonType(models.Model):
         return self.name
 
 
-class PokemonStats(models.Model):
+class PokemonStat(models.Model):
     name = models.CharField(max_length=50)
     value = models.SmallIntegerField()
 
@@ -18,12 +25,15 @@ class PokemonStats(models.Model):
 
 class Pokemon(models.Model):
     id = models.PositiveSmallIntegerField(primary_key=True)
-    name = models.CharField(max_length=50)
-    height = models.PositiveSmallIntegerField()
-    weight = models.PositiveSmallIntegerField()
-    sprite = models.URLField()
+
+    stats = models.ManyToManyField(PokemonStat, related_name='pokemons')
     types = models.ManyToManyField(PokemonType, related_name='pokemons')
-    stats = models.ManyToManyField(PokemonStats, related_name='pokemons')
+    moves = models.ManyToManyField(PokemonMove, related_name='pokemons')
+
+    name = models.CharField(max_length=50)
+    height = models.FloatField()
+    weight = models.FloatField()
+    sprite = models.URLField()
     color = models.CharField(max_length=50)
     generation = models.CharField(max_length=10)
     evolution_chain = models.URLField()

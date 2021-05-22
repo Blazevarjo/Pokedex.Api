@@ -1,7 +1,8 @@
 from django.contrib import admin
 
-from .models import Pokemon, PokemonStats, PokemonType
+from .models import Pokemon, PokemonStat, PokemonType, PokemonMove
 
 admin.site.register(PokemonType)
-admin.site.register(PokemonStats)
+admin.site.register(PokemonStat)
+admin.site.register(PokemonMove)
 admin.site.register(Pokemon)

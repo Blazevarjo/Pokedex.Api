@@ -56,18 +56,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'TrudneHaslo123-d',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
-}
 BROKER_URL = env('BROKER_URL')
 
 ROOT_URLCONF = 'pokedex.urls'
