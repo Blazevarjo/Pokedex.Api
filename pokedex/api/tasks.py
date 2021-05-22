@@ -34,7 +34,8 @@ def update_pokemons():
             'types': [{'name': data['type']['name']} for data in pokemon_data['types']],
             'stats': [{'name': data['stat']['name'], 'value': data['base_stat']} for data in
                       pokemon_data['stats']],
-            'moves': [{'url': data['move']['url']} for data in pokemon_data['moves']],
+            'moves': [{'url': data['move']['url'], 'versions': [group_details['version_group']['name'] for group_details in data['version_group_details']]}
+                      for data in pokemon_data['moves']],
             'color': pokemon_specie_data['color']['name'],
             'generation': pokemon_specie_data['generation']['name'].split('-')[1].upper(),
             'evolution_chain': pokemon_specie_data['evolution_chain']['url']

@@ -1,8 +1,10 @@
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
 
 
 class PokemonMove(models.Model):
     url = models.URLField()
+    versions = ArrayField(models.CharField(max_length=50), default=list)
 
     def __str__(self):
         return self.url
