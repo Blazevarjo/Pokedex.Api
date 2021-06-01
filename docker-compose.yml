@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    command: >
+      sh -c "python manage.py collectstatic --noinput &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    env_file:
+      - .env
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+  db:
+    image: postgres:latest
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    depends_on:
+      - web
+  celery:
+    build: .
+    command: celery -A pokedex worker --loglevel=INFO -B --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    env_file:
+      - .env
+    depends_on:
+      - redis
+      - web

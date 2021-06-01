@@ -1,12 +1,6 @@
 from rest_framework import serializers
 
-from .models import PokemonType, Pokemon, PokemonStat, PokemonMove
-
-
-class PokemonMoveSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = PokemonMove
-        fields = ['url', 'versions']
+from .models import PokemonType, Pokemon
 
 
 class PokemonTypeSerializer(serializers.ModelSerializer):
@@ -15,16 +9,8 @@ class PokemonTypeSerializer(serializers.ModelSerializer):
         fields = ['name']
 
 
-class PokemonStatSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = PokemonStat
-        fields = ['name', 'value']
-
-
 class PokemonSerializer(serializers.ModelSerializer):
-    moves = PokemonMoveSerializer(many=True)
     types = PokemonTypeSerializer(many=True)
-    stats = PokemonStatSerializer(many=True)
 
     class Meta:
         model = Pokemon
@@ -33,11 +19,7 @@ class PokemonSerializer(serializers.ModelSerializer):
             'name',
             'height',
             'weight',
-            'moves',
-            'sprite',
             'types',
-            'stats',
             'color',
             'generation',
-            'evolution_chain'
         ]

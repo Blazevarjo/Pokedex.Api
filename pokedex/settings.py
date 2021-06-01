@@ -10,15 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
+from pathlib import Path
 
 import dj_database_url
 import environ
-from pathlib import Path
-
 from django.conf.global_settings import DATABASES
 
 env = environ.Env(DEBUG=(bool, False), ALLOWED_HOSTS=(list, []))
-environ.Env.read_env()
 
 ALLOWED_HOSTS = env('ALLOWED_HOSTS')
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -60,7 +58,8 @@ MIDDLEWARE = [
 
 DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 
-BROKER_URL = env('BROKER_URL')
+CELERY_BROKER_URL = env('BROKER_URL')
+CELERY_RESULT_BACKEND = env('BROKER_URL')
 
 ROOT_URLCONF = 'pokedex.urls'
 

@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('api', '0002_auto_20210522_1755'),
     ]
@@ -14,6 +13,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='pokemonmove',
             name='versions',
-            field=django.contrib.postgres.fields.ArrayField(base_field=models.CharField(max_length=50), default=list, size=None),
+            field=django.contrib.postgres.fields.ArrayField(base_field=models.CharField(max_length=50), default=list,
+                                                            size=None),
         ),
     ]
